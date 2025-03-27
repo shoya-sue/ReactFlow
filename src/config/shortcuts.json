@@ -1,0 +1,17 @@
+{
+  "zoom": {
+    "in": "Ctrl+WheelUp",
+    "out": "Ctrl+WheelDown"
+  },
+  "pan": {
+    "start": "Space",
+    "move": "Space+Drag"
+  },
+  "canvas": {
+    "reset": "Ctrl+R"
+  },
+  "file": {
+    "save": "Ctrl+S",
+    "export": "Ctrl+E"
+  }
+} 
