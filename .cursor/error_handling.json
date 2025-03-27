@@ -1,0 +1,69 @@
+{
+  "error_boundaries": {
+    "placement": {
+      "route_level": true,
+      "feature_level": true,
+      "component_level": "必要に応じて"
+    },
+    "recovery_strategies": [
+      "リトライ機能の提供",
+      "代替UIの表示",
+      "エラーログの送信"
+    ]
+  },
+  "api_errors": {
+    "status_codes": {
+      "400": "バリデーションエラー",
+      "401": "認証エラー",
+      "403": "権限エラー",
+      "404": "リソース未発見",
+      "500": "サーバーエラー"
+    },
+    "response_format": {
+      "error": {
+        "code": "エラーコード",
+        "message": "ユーザー向けメッセージ",
+        "details": "詳細情報",
+        "timestamp": "発生時刻"
+      }
+    }
+  },
+  "logging": {
+    "levels": {
+      "error": "重大なエラー",
+      "warn": "警告",
+      "info": "情報",
+      "debug": "デバッグ情報"
+    },
+    "required_fields": [
+      "timestamp",
+      "error_id",
+      "user_id",
+      "stack_trace",
+      "context"
+    ]
+  },
+  "user_feedback": {
+    "messages": {
+      "friendly": true,
+      "actionable": true,
+      "clear": true
+    },
+    "retry_mechanism": {
+      "max_attempts": 3,
+      "backoff_strategy": "exponential",
+      "initial_delay": "1s"
+    }
+  },
+  "monitoring": {
+    "error_tracking": {
+      "service": "Sentry",
+      "sample_rate": 1.0,
+      "environment": ["development", "staging", "production"]
+    },
+    "alerts": {
+      "threshold": "5分間で10エラー",
+      "notification": ["Slack", "Email"]
+    }
+  }
+} 

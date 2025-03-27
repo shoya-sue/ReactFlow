@@ -1,0 +1,59 @@
+{
+  "code_style": {
+    "general": {
+      "indent": "spaces",
+      "indent_size": 2,
+      "max_line_length": 80,
+      "line_endings": "lf"
+    },
+    "typescript": {
+      "prefer_const": true,
+      "use_semicolons": true,
+      "quotes": "single",
+      "arrow_parens": "always"
+    },
+    "react": {
+      "component_style": "functional",
+      "props_interface_prefix": "I",
+      "styled_components_prefix": "Styled"
+    }
+  },
+  "commit_rules": {
+    "prefix": [
+      "feat:",
+      "fix:",
+      "docs:",
+      "style:",
+      "refactor:",
+      "test:",
+      "chore:"
+    ],
+    "max_title_length": 50,
+    "body_required": true
+  },
+  "best_practices": {
+    "react": [
+      "コンポーネントは単一責任の原則に従う",
+      "状態管理はなるべく下層に押し込む",
+      "パフォーマンスを考慮したメモ化を行う",
+      "適切なエラーバウンダリを設定する"
+    ],
+    "typescript": [
+      "any型の使用を避ける",
+      "明示的な型定義を心がける",
+      "Union型を活用する",
+      "readonly修飾子を適切に使用する"
+    ]
+  },
+  "folder_structure": {
+    "src": {
+      "components": "共通コンポーネント",
+      "pages": "ページコンポーネント",
+      "hooks": "カスタムフック",
+      "utils": "ユーティリティ関数",
+      "types": "型定義ファイル",
+      "styles": "スタイル関連ファイル",
+      "assets": "静的アセット"
+    }
+  }
+} 
