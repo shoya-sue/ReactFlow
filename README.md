@@ -4,6 +4,28 @@
 React Flowを使用したインタラクティブなフローチャート・ダイアグラム作成ツールです。
 An interactive flowchart and diagram creation tool using React Flow.
 
+## 開発ルール (Development Rules)
+
+### .cursor設定
+プロジェクトの開発ルールとガイドラインは`.cursor`ディレクトリで管理されています。
+
+#### 基本設定
+- `chatrule.mdc`: チャットアシスタントの基本設定
+- `config.mdc`: アシスタントの基本設定
+- `responses.mdc`: レスポンステンプレート
+
+#### 開発ルール
+- `rules/coding_rules.mdc`: コーディング規約
+- `rules/error_handling.mdc`: エラーハンドリング
+- `rules/security.mdc`: セキュリティガイドライン
+- `rules/performance.mdc`: パフォーマンス最適化
+- `rules/accessibility.mdc`: アクセシビリティ
+- `rules/snippets.mdc`: コードスニペット
+- `rules/git_workflow.mdc`: Gitワークフロー
+- `rules/development.mdc`: 開発環境設定
+
+各ルールファイルはMarkdown形式で記述され、設定の意図や詳細な説明を含んでいます。
+
 ## 主要機能 (Main Features)
 
 ### 1. ノード操作 (Node Operations)
