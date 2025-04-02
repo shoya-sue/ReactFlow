@@ -20,8 +20,8 @@ const Toolbar = () => {
   }, [setNodes]);
 
   const resetCanvas = useCallback(() => {
-    setNodes([]);
-    setEdges([]);
+    setNodes(() => []);
+    setEdges(() => []);
   }, [setNodes, setEdges]);
 
   return (

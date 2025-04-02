@@ -5,7 +5,6 @@ import {
   getBezierPath,
   getStraightPath,
   getSmoothStepPath,
-  getEdgeCenter,
 } from '@xyflow/react';
 import { FC, useState, useCallback, useMemo, useEffect } from 'react';
 import { EdgeData, EdgeType, EdgeStyle } from '../../types';
@@ -77,7 +76,6 @@ const getAnimationStyle = (animation?: EdgeStyle['animation']) => {
   if (!animation || animation.type === 'none') return undefined;
 
   const duration = animation.duration || 20;
-  const delay = animation.delay || 0;
 
   switch (animation.type) {
     case 'flow':
@@ -169,13 +167,11 @@ const CustomEdge = ({
   sourcePosition,
   targetPosition,
   data,
-  markerEnd,
   style: defaultStyle,
   type = 'bezier',
 }: ExtendedEdgeProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [label, setLabel] = useState((data as EdgeData)?.label || '');
-  const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null);
   const [controlPoints, setControlPoints] = useState<EdgeData['controlPoints']>(
     (data as EdgeData)?.controlPoints || {
       sourceHandle: {
@@ -266,7 +262,6 @@ const CustomEdge = ({
 
   const onContextMenu = useCallback((evt: React.MouseEvent) => {
     evt.preventDefault();
-    setContextMenu({ x: evt.clientX, y: evt.clientY });
   }, []);
 
   const onBlur = useCallback(() => {

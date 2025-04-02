@@ -3,8 +3,6 @@ import {
   ReactFlow,
   Background,
   Controls,
-  Panel,
-  useReactFlow,
   Edge,
   ReactFlowProvider,
 } from '@xyflow/react';
@@ -27,11 +25,9 @@ const FlowContent: FC = () => {
     theme,
   } = useFlowStore();
 
-  const { getEdge } = useReactFlow();
-
   const [selectedEdge, setSelectedEdge] = useState<Edge<EdgeData> | undefined>();
 
-  const onEdgeClick = useCallback((event: React.MouseEvent, edge: Edge<EdgeData>) => {
+  const onEdgeClick = useCallback((_: React.MouseEvent, edge: Edge<EdgeData>) => {
     setSelectedEdge(edge);
   }, []);
 

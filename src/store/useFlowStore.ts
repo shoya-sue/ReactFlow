@@ -6,10 +6,6 @@ import {
   Node,
   NodeChange,
   EdgeChange,
-  addEdge,
-  OnNodesChange,
-  OnEdgesChange,
-  OnConnect,
   applyNodeChanges,
   applyEdgeChanges,
 } from '@xyflow/react';
@@ -22,6 +18,8 @@ interface IFlowState {
   nodes: Node<NodeData>[];
   edges: Edge<EdgeData>[];
   theme: Theme;
+  setNodes: (updater: (nodes: Node<NodeData>[]) => Node<NodeData>[]) => void;
+  setEdges: (updater: (edges: Edge<EdgeData>[]) => Edge<EdgeData>[]) => void;
   onNodesChange: (changes: NodeChange<Node<NodeData>>[]) => void;
   onEdgesChange: (changes: EdgeChange<Edge<EdgeData>>[]) => void;
   onConnect: (connection: Connection) => void;
@@ -41,6 +39,8 @@ const useFlowStore = create<IFlowState>()(
       nodes: defaultNodes,
       edges: defaultEdges,
       theme: 'light',
+      setNodes: (updater) => set((state) => ({ nodes: updater(state.nodes) })),
+      setEdges: (updater) => set((state) => ({ edges: updater(state.edges) })),
       onNodesChange: (changes: NodeChange<Node<NodeData>>[]) => {
         set({
           nodes: applyNodeChanges<Node<NodeData>>(changes, get().nodes),

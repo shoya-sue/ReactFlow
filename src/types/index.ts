@@ -38,7 +38,6 @@ export interface EdgeStyle {
   animation?: {
     type: 'flow' | 'pulse' | 'dash' | 'none';
     duration?: number;
-    delay?: number;
   };
 }
 

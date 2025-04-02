@@ -13,24 +13,28 @@ export const EdgeStyleToolbar: FC<EdgeStyleToolbarProps> = ({ selectedEdge }) =>
   if (!selectedEdge) return null;
 
   const handleStyleChange = (style: Partial<EdgeStyle>) => {
-    const newData = {
-      ...selectedEdge.data,
-      style: {
-        ...(selectedEdge.data?.style || {}),
-        ...style,
+    const newData: Partial<Edge<EdgeData>> = {
+      data: {
+        ...selectedEdge.data,
+        style: {
+          ...(selectedEdge.data?.style || {}),
+          ...style,
+        },
       },
     };
     updateEdge(selectedEdge.id, newData);
   };
 
   const handleArrowChange = (arrowStyle: Partial<EdgeStyle['arrow']>) => {
-    const newData = {
-      ...selectedEdge.data,
-      style: {
-        ...(selectedEdge.data?.style || {}),
-        arrow: {
-          ...(selectedEdge.data?.style?.arrow || {}),
-          ...arrowStyle,
+    const newData: Partial<Edge<EdgeData>> = {
+      data: {
+        ...selectedEdge.data,
+        style: {
+          ...(selectedEdge.data?.style || {}),
+          arrow: {
+            ...(selectedEdge.data?.style?.arrow || {}),
+            ...arrowStyle,
+          },
         },
       },
     };

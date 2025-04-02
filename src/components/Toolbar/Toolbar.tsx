@@ -1,5 +1,6 @@
 import { Node } from '@xyflow/react';
 import useFlowStore from '../../store/useFlowStore';
+import { NodeData } from '../../types';
 
 const nodeTypes = [
   {
@@ -62,11 +63,14 @@ export const Toolbar = () => {
       y: Math.random() * 500,
     };
 
-    const newNode: Node = {
+    const newNode: Node<NodeData> = {
       id: `node-${Date.now()}`,
       type,
       position,
-      data: { label: `${type} node` },
+      data: { 
+        label: `${type} node`,
+        description: '新しいノード'
+      },
     };
 
     addNode(newNode);
