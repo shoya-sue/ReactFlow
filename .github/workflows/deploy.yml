@@ -1,9 +1,10 @@
-name: Deploy to Sakura Server
+name: Deploy to Server
 
 on:
   push:
     branches:
       - main  # メインブランチにプッシュされた時に実行
+  workflow_dispatch:  # 手動実行用のトリガーを追加
 
 jobs:
   deploy:
