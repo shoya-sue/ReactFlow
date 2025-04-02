@@ -1,4 +1,9 @@
 ---
+description: 
+globs: 
+alwaysApply: true
+---
+---
 description: チャットルールの設定ファイル
 globs: 
   - .cursor/*.mdc
@@ -14,16 +19,16 @@ alwaysApply: true
 
 以下のMDCファイルから設定を読み込みます：
 
-- [config.mdc](./config.mdc): アシスタントの基本設定
-- [responses.mdc](./responses.mdc): レスポンステンプレート
-- [coding_rules.mdc](./rules/coding_rules.mdc): コーディングルール
-- [error_handling.mdc](./rules/error_handling.mdc): エラーハンドリングルール
-- [security.mdc](./rules/security.mdc): セキュリティルール
-- [performance.mdc](./rules/performance.mdc): パフォーマンスルール
-- [accessibility.mdc](./rules/accessibility.mdc): アクセシビリティルール
-- [snippets.mdc](./rules/snippets.mdc): コードスニペット
-- [git_workflow.mdc](./rules/git_workflow.mdc): Gitワークフロー
-- [development.mdc](./rules/development.mdc): 開発環境設定
+- [config.mdc](mdc:config.mdc): アシスタントの基本設定
+- [responses.mdc](mdc:responses.mdc): レスポンステンプレート
+- [coding_rules.mdc](mdc:rules/coding_rules.mdc): コーディングルール
+- [error_handling.mdc](mdc:rules/error_handling.mdc): エラーハンドリングルール
+- [security.mdc](mdc:rules/security.mdc): セキュリティルール
+- [performance.mdc](mdc:rules/performance.mdc): パフォーマンスルール
+- [accessibility.mdc](mdc:rules/accessibility.mdc): アクセシビリティルール
+- [snippets.mdc](mdc:rules/snippets.mdc): コードスニペット
+- [git_workflow.mdc](mdc:rules/git_workflow.mdc): Gitワークフロー
+- [development.mdc](mdc:rules/development.mdc): 開発環境設定
 
 ## ルールの適用
 
