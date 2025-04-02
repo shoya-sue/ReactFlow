@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body {
+    @apply m-0 p-0 overflow-hidden;
+  }
+}
+
+@layer components {
+  .react-flow__node {
+    @apply shadow-md rounded-lg;
+  }
+
+  .react-flow__handle {
+    @apply w-3 h-3 bg-blue-500;
+  }
+
+  .react-flow__edge-path {
+    @apply stroke-2 stroke-gray-400;
+  }
+}
+
 html,
 body,
 #root {
