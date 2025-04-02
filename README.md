@@ -1,4 +1,30 @@
-# React Flow GUI Tool Specification
+# React Flow GUI
+
+フローチャートを簡単に作成・編集できるWebアプリケーション
+
+## サービスURL
+
+https://flow.sho43.xyz/
+
+## 機能
+
+- ドラッグ&ドロップでノードを配置
+- エッジの種類やスタイルをカスタマイズ
+- ダークモード対応
+- 作成したフローチャートの保存と読み込み
+
+## 開発
+
+```bash
+# 依存関係のインストール
+npm install
+
+# 開発サーバーの起動
+npm run dev
+
+# ビルド
+npm run build
+```
 
 ## 概要 (Overview)
 React Flowを使用したインタラクティブなフローチャート・ダイアグラム作成ツールです。
