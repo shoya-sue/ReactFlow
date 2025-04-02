@@ -1,43 +1,135 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import { FlowState, FlowNode, FlowEdge, Theme } from '@/types';
-import { applyNodeChanges, applyEdgeChanges, NodeChange, EdgeChange } from '@xyflow/react';
-import { initialNodes } from '@/config/initialNodes';
-import { initialEdges } from '@/config/initialEdges';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import {
+  Connection,
+  Edge,
+  Node,
+  NodeChange,
+  EdgeChange,
+  addEdge,
+  OnNodesChange,
+  OnEdgesChange,
+  OnConnect,
+  applyNodeChanges,
+  applyEdgeChanges,
+} from '@xyflow/react';
+import { defaultNodes, defaultEdges } from '../config/defaultState';
+import { EdgeData, NodeData } from '../types';
 
-const useFlowStore = create<FlowState>()(
+type Theme = 'light' | 'dark';
+
+interface IFlowState {
+  nodes: Node<NodeData>[];
+  edges: Edge<EdgeData>[];
+  theme: Theme;
+  onNodesChange: (changes: NodeChange<Node<NodeData>>[]) => void;
+  onEdgesChange: (changes: EdgeChange<Edge<EdgeData>>[]) => void;
+  onConnect: (connection: Connection) => void;
+  updateEdge: (id: string, data: Partial<Edge<EdgeData>>) => void;
+  addNode: (node: Node<NodeData>) => void;
+  removeNode: (nodeId: string) => void;
+  toggleTheme: () => void;
+  clearCanvas: () => void;
+  saveToLocalStorage: () => void;
+  loadFromLocalStorage: () => void;
+  resetToDefault: () => void;
+}
+
+const useFlowStore = create<IFlowState>()(
   persist(
-    (set) => ({
-      nodes: initialNodes,
-      edges: initialEdges,
-      theme: 'light' as Theme,
-      setNodes: (updater: FlowNode[] | ((nodes: FlowNode[]) => FlowNode[])) => {
+    (set, get) => ({
+      nodes: defaultNodes,
+      edges: defaultEdges,
+      theme: 'light',
+      onNodesChange: (changes: NodeChange<Node<NodeData>>[]) => {
+        set({
+          nodes: applyNodeChanges<Node<NodeData>>(changes, get().nodes),
+        });
+      },
+      onEdgesChange: (changes: EdgeChange<Edge<EdgeData>>[]) => {
+        set({
+          edges: applyEdgeChanges<Edge<EdgeData>>(changes, get().edges),
+        });
+      },
+      onConnect: (connection) => {
         set((state) => ({
-          nodes: typeof updater === 'function' ? updater(state.nodes) : updater,
+          edges: [
+            ...state.edges,
+            {
+              ...connection,
+              id: `edge-${Date.now()}`,
+              data: {
+                label: 'New Edge',
+                style: {
+                  type: 'default',
+                  color: '#b1b1b7',
+                  width: 1,
+                  animated: false,
+                },
+              },
+            } as Edge<EdgeData>,
+          ],
         }));
       },
-      setEdges: (updater: FlowEdge[] | ((edges: FlowEdge[]) => FlowEdge[])) => {
+      updateEdge: (id, data) => {
         set((state) => ({
-          edges: typeof updater === 'function' ? updater(state.edges) : updater,
+          edges: state.edges.map((edge) =>
+            edge.id === id ? { ...edge, ...data } : edge
+          ),
         }));
       },
-      onNodesChange: (changes: NodeChange[]) => {
+      addNode: (node) => {
         set((state) => ({
-          nodes: applyNodeChanges(changes, state.nodes) as FlowNode[],
+          nodes: [...state.nodes, node],
         }));
       },
-      onEdgesChange: (changes: EdgeChange[]) => {
+      removeNode: (nodeId) => {
         set((state) => ({
-          edges: applyEdgeChanges(changes, state.edges) as FlowEdge[],
+          nodes: state.nodes.filter((node) => node.id !== nodeId),
+          edges: state.edges.filter(
+            (edge) => edge.source !== nodeId && edge.target !== nodeId
+          ),
         }));
       },
-      toggleTheme: () =>
+      toggleTheme: () => {
         set((state) => ({
           theme: state.theme === 'light' ? 'dark' : 'light',
-        })),
+        }));
+      },
+      clearCanvas: () => {
+        set({
+          nodes: [],
+          edges: [],
+        });
+      },
+      saveToLocalStorage: () => {
+        const state = get();
+        localStorage.setItem(
+          'flow-manual-save',
+          JSON.stringify({
+            nodes: state.nodes,
+            edges: state.edges,
+            timestamp: new Date().toISOString(),
+          })
+        );
+      },
+      loadFromLocalStorage: () => {
+        const savedState = localStorage.getItem('flow-manual-save');
+        if (savedState) {
+          const { nodes, edges } = JSON.parse(savedState);
+          set({ nodes, edges });
+        }
+      },
+      resetToDefault: () => {
+        set({
+          nodes: defaultNodes,
+          edges: defaultEdges,
+        });
+      },
     }),
     {
       name: 'flow-storage',
+      storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         nodes: state.nodes,
         edges: state.edges,
